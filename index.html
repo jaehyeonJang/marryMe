@@ -3,84 +3,132 @@
 <head>
   <meta charset="UTF-8">
   <title>가현아, 결혼해줄래?</title>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR&display=swap" rel="stylesheet">
   <style>
     body {
       margin: 0;
+      font-family: 'Noto Serif KR', serif;
       background: linear-gradient(#fff0f5, #ffe4e1);
-      font-family: 'Noto Sans KR', sans-serif;
+      overflow-x: hidden;
+    }
+    header {
+      height: 100vh;
+      background: url('https://source.unsplash.com/1600x900/?love,romance') center/cover no-repeat;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      color: white;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.6);
       text-align: center;
-      padding: 50px 20px;
     }
-    h1 {
-      font-size: 2.5em;
-      margin-top: 100px;
-      opacity: 0;
-      animation: fadeIn 2s ease forwards;
+    header h1 {
+      font-size: 3em;
+      animation: fadeInDown 2s ease-out;
     }
-    p {
-      font-size: 1.2em;
-      margin-top: 30px;
-      line-height: 1.6;
-      white-space: pre-wrap;
-      opacity: 0;
-      animation: fadeIn 2s ease 1s forwards;
-    }
-    button {
-      margin-top: 60px;
-      padding: 15px 30px;
+    header p {
       font-size: 1.5em;
+      animation: fadeInUp 2.5s ease-out;
+    }
+    section {
+      padding: 60px 20px;
+      max-width: 900px;
+      margin: auto;
+      text-align: center;
+    }
+    .timeline {
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+    }
+    .event {
+      background: white;
+      padding: 20px;
+      border-radius: 15px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      animation: fadeIn 1s ease forwards;
+    }
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 10px;
+      margin-top: 20px;
+    }
+    .gallery img {
+      width: 100%;
+      border-radius: 10px;
+    }
+    footer {
       background: #ff69b4;
       color: white;
+      padding: 40px 20px;
+      text-align: center;
+    }
+    button {
+      padding: 15px 30px;
+      font-size: 1.3em;
+      background: white;
+      color: #ff1493;
       border: none;
       border-radius: 30px;
       cursor: pointer;
+      margin-top: 30px;
       box-shadow: 0 8px 16px rgba(0,0,0,0.2);
-      transition: transform 0.3s;
     }
     button:hover {
-      transform: scale(1.1);
+      background-color: #ffe4e1;
     }
-    @keyframes fadeIn {
+    @keyframes fadeInDown {
+      from { opacity: 0; transform: translateY(-30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeInUp {
       from { opacity: 0; transform: translateY(30px); }
       to { opacity: 1; transform: translateY(0); }
     }
-
-    .hearts {
-      position: fixed;
-      bottom: 0;
-      left: 50%;
-      transform: translateX(-50%);
-      font-size: 2rem;
-      color: #ff1493;
-      animation: floatUp 2s ease-in-out forwards;
-    }
-
-    @keyframes floatUp {
-      from { transform: translate(-50%, 0); opacity: 1; }
-      to { transform: translate(-50%, -200px); opacity: 0; }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
     }
   </style>
 </head>
 <body>
-  <h1>가현아, 결혼해줄래?</h1>
-  <p>처음 만난 날부터 지금까지<br>
-  너와 함께한 모든 순간이 기적 같았어.<br><br>
-  앞으로의 모든 순간도<br>
-  너와 함께하고 싶어.</p>
-  <button onclick="showHeart()">YES ❤️</button>
+  <header>
+    <h1>가현아, 나랑 결혼해줄래?</h1>
+    <p>우리의 이야기를 기억해볼까?</p>
+  </header>
 
-  <script>
-    function showHeart() {
-      const heart = document.createElement("div");
-      heart.className = "hearts";
-      heart.innerText = "💖";
-      document.body.appendChild(heart);
-      setTimeout(() => {
-        heart.remove();
-        alert("고마워, 평생 함께하자 💍");
-      }, 2000);
-    }
-  </script>
+  <section>
+    <h2>우리의 추억</h2>
+    <div class="timeline">
+      <div class="event">
+        <h3>2021.06.01 - 첫 만남</h3>
+        <p>카페에서 우연히 만난 그 날, 모든 게 달라졌어.</p>
+      </div>
+      <div class="event">
+        <h3>2022.03.14 - 첫 여행</h3>
+        <p>부산 바닷가에서 찍은 사진, 아직도 기억나?</p>
+      </div>
+      <div class="event">
+        <h3>2023.12.24 - 크리스마스</h3>
+        <p>우리만의 작은 트리를 꾸미며 미래를 꿈꿨어.</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>함께한 순간들</h2>
+    <div class="gallery">
+      <img src="https://source.unsplash.com/400x300/?couple,1" alt="photo1">
+      <img src="https://source.unsplash.com/400x300/?couple,2" alt="photo2">
+      <img src="https://source.unsplash.com/400x300/?love,3" alt="photo3">
+      <img src="https://source.unsplash.com/400x300/?romance,4" alt="photo4">
+    </div>
+  </section>
+
+  <footer>
+    <h2>가현아, 나랑 평생 함께해줄래?</h2>
+    <button onclick="alert('YES! 💍 우리 결혼해요!')">YES ❤️</button>
+  </footer>
 </body>
 </html>
