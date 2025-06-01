@@ -1,96 +1,7 @@
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-  <meta charset="UTF-8">
-  <title>가현아, 결혼해줄래?</title>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR&display=swap" rel="stylesheet">
-  <style>
-    body {
-      margin: 0;
-      font-family: 'Noto Serif KR', serif;
-      background: linear-gradient(#fff0f5, #ffe4e1);
-      overflow-x: hidden;
-    }
-    header {
-      height: 100vh;
-      background: url('https://source.unsplash.com/1600x900/?love,romance') center/cover no-repeat;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      color: white;
-      text-shadow: 2px 2px 4px rgba(0,0,0,0.6);
-      text-align: center;
-    }
-    header h1 {
-      font-size: 3em;
-      animation: fadeInDown 2s ease-out;
-    }
-    header p {
-      font-size: 1.5em;
-      animation: fadeInUp 2.5s ease-out;
-    }
-    section {
-      padding: 60px 20px;
-      max-width: 900px;
-      margin: auto;
-      text-align: center;
-    }
-    .timeline {
-      display: flex;
-      flex-direction: column;
-      gap: 30px;
-    }
-    .event {
-      background: white;
-      padding: 20px;
-      border-radius: 15px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-      animation: fadeIn 1s ease forwards;
-    }
-    .gallery {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 10px;
-      margin-top: 20px;
-    }
-    .gallery img {
-      width: 100%;
-      border-radius: 10px;
-    }
-    footer {
-      background: #ff69b4;
-      color: white;
-      padding: 40px 20px;
-      text-align: center;
-    }
-    button {
-      padding: 15px 30px;
-      font-size: 1.3em;
-      background: white;
-      color: #ff1493;
-      border: none;
-      border-radius: 30px;
-      cursor: pointer;
-      margin-top: 30px;
-      box-shadow: 0 8px 16px rgba(0,0,0,0.2);
-    }
-    button:hover {
-      background-color: #ffe4e1;
-    }
-    @keyframes fadeInDown {
-      from { opacity: 0; transform: translateY(-30px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    @keyframes fadeInUp {
-      from { opacity: 0; transform: translateY(30px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
-  </style>
+<audio autoplay loop>
+  <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_f51959d2d8.mp3?filename=romantic-piano-121239.mp3" type="audio/mpeg">
+  Your browser does not support the audio element.
+</audio>
 </head>
 <body>
   <header>
@@ -130,5 +41,20 @@
     <h2>가현아, 나랑 평생 함께해줄래?</h2>
     <button onclick="alert('YES! 💍 우리 결혼해요!')">YES ❤️</button>
   </footer>
+
+  <script>
+    function createFallingEmoji() {
+      const emojis = ['❤️', '🍞']; // 하트, 빵
+      const emoji = document.createElement('div');
+      emoji.className = 'falling';
+      emoji.style.left = Math.random() * 100 + 'vw';
+      emoji.style.animationDuration = 3 + Math.random() * 5 + 's';
+      emoji.style.fontSize = 20 + Math.random() * 30 + 'px';
+      emoji.innerText = emojis[Math.floor(Math.random() * emojis.length)];
+      document.body.appendChild(emoji);
+      setTimeout(() => emoji.remove(), 8000);
+    }
+    setInterval(createFallingEmoji, 300);
+  </script>
 </body>
 </html>
