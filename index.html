@@ -1,12 +1,86 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
-	<meta charset="UTF-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Portfolio</title>
+  <meta charset="UTF-8">
+  <title>지은아, 결혼해줄래?</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      background: linear-gradient(#fff0f5, #ffe4e1);
+      font-family: 'Noto Sans KR', sans-serif;
+      text-align: center;
+      padding: 50px 20px;
+    }
+    h1 {
+      font-size: 2.5em;
+      margin-top: 100px;
+      opacity: 0;
+      animation: fadeIn 2s ease forwards;
+    }
+    p {
+      font-size: 1.2em;
+      margin-top: 30px;
+      line-height: 1.6;
+      white-space: pre-wrap;
+      opacity: 0;
+      animation: fadeIn 2s ease 1s forwards;
+    }
+    button {
+      margin-top: 60px;
+      padding: 15px 30px;
+      font-size: 1.5em;
+      background: #ff69b4;
+      color: white;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+      transition: transform 0.3s;
+    }
+    button:hover {
+      transform: scale(1.1);
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .hearts {
+      position: fixed;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 2rem;
+      color: #ff1493;
+      animation: floatUp 2s ease-in-out forwards;
+    }
+
+    @keyframes floatUp {
+      from { transform: translate(-50%, 0); opacity: 1; }
+      to { transform: translate(-50%, -200px); opacity: 0; }
+    }
+  </style>
 </head>
 <body>
-  <p>Hello, World!</p>
+  <h1>가현아, 결혼해줄래?</h1>
+  <p>처음 만난 날부터 지금까지<br>
+  너와 함께한 모든 순간이 기적 같았어.<br><br>
+  앞으로의 모든 순간도<br>
+  너와 함께하고 싶어.</p>
+  <button onclick="showHeart()">YES ❤️</button>
+
+  <script>
+    function showHeart() {
+      const heart = document.createElement("div");
+      heart.className = "hearts";
+      heart.innerText = "💖";
+      document.body.appendChild(heart);
+      setTimeout(() => {
+        heart.remove();
+        alert("고마워, 평생 함께하자 💍");
+      }, 2000);
+    }
+  </script>
 </body>
 </html>
