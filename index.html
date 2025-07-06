@@ -1,31 +1,41 @@
-<!-- index.html -->
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8">
   <title>소원 트리</title>
   <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/4.0.24/fullpage.min.css">
 </head>
 <body>
-  <div class="container">
+
+<div id="fullpage">
+  <div class="section">
     <h1>소원 트리</h1>
     <p class="subtitle">기억은 잃어도, 마음은 다시.</p>
-
-    <section>
-      <h2>1. 기억의 시대</h2>
-      <p>기억은 원래 그 사람의 것이었지만, 더 이상 그 사람만의 것은 아닌 세상이 되었다...</p>
-    </section>
-
-    <section>
-      <h2>2. 두 사람의 일상</h2>
-      <p>많은 것들이 바뀌는 시대에도 결국 세상을 지탱하는 건 평범한 사람들이었다...</p>
-    </section>
-
-    <!-- 나머지 챕터 반복 -->
-
-    <footer>
-      <p class="end">그리고 이 이야기는, 다시 시작될 그들의 하루로 이어졌다.</p>
-    </footer>
   </div>
+
+  <div class="section">
+    <p>
+      기억은 원래 그 사람의 것이었지만, 이제는 그 사람만의 것이 아니었다.
+      ... (이렇게 전체 스토리를 한 덩어리씩 넣기)
+    </p>
+  </div>
+
+  <div class="section">
+    <p>
+      계속되는 이야기...
+    </p>
+  </div>
+
+  <!-- 원하는 만큼 section 추가 -->
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/4.0.24/fullpage.min.js"></script>
+<script>
+  new fullpage('#fullpage', {
+    autoScrolling: true,
+    navigation: true
+  });
+</script>
 </body>
 </html>
