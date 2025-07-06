@@ -1,41 +1,30 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html>
 <head>
-  <meta charset="UTF-8">
-  <title>소원 트리</title>
-  <link rel="stylesheet" href="style.css" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/4.0.24/fullpage.min.css">
+  <meta charset="utf-8">
+  <title>소원 트리 - eBook</title>
+  <script src="https://unpkg.com/epubjs/dist/epub.min.js"></script>
+  <style>
+    body {
+      margin: 0;
+      background: #000;
+    }
+    #viewer {
+      width: 100%;
+      height: 100vh;
+    }
+  </style>
 </head>
 <body>
+  <div id="viewer"></div>
 
-<div id="fullpage">
-  <div class="section">
-    <h1>소원 트리</h1>
-    <p class="subtitle">기억은 잃어도, 마음은 다시.</p>
-  </div>
-
-  <div class="section">
-    <p>
-      기억은 원래 그 사람의 것이었지만, 이제는 그 사람만의 것이 아니었다.
-      ... (이렇게 전체 스토리를 한 덩어리씩 넣기)
-    </p>
-  </div>
-
-  <div class="section">
-    <p>
-      계속되는 이야기...
-    </p>
-  </div>
-
-  <!-- 원하는 만큼 section 추가 -->
-</div>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/4.0.24/fullpage.min.js"></script>
-<script>
-  new fullpage('#fullpage', {
-    autoScrolling: true,
-    navigation: true
-  });
-</script>
+  <script>
+    const book = ePub("soowon-tree.epub");
+    const rendition = book.renderTo("viewer", {
+      width: "100%",
+      height: "100%"
+    });
+    rendition.display();
+  </script>
 </body>
 </html>
