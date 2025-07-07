@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <title>소원 트리 - eBook</title>
 
-  <!-- ✅ 반응형 뷰포트 필수 -->
+  <!-- ✅ 반응형 뷰포트 필수! -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <!-- ✅ epub.js CDN -->
@@ -51,10 +51,43 @@
 
   <!-- ✅ 안전한 epub.js 스크립트 -->
   <script>
-    let rendition; // ✅ 전역에 선언
+    let rendition;
 
     const book = ePub("soowon-tree.epub");
 
-    // ✅ 안전하게 book.ready 후 초기화
     book.ready.then(() => {
-      rendition = book
+      rendition = book.renderTo("viewer", {
+        width: "100%",
+        height: "100%"
+      });
+
+      // ✅ ✅ ✅ 강제 다크 모드 테마 덮어쓰기!
+      rendition.themes.register("dark", {
+        "body": {
+          "color": "#fff",
+          "background": "#000",
+          "line-height": "1.6",
+          "padding": "1rem"
+        }
+      });
+
+      rendition.themes.select("dark");
+
+      rendition.display();
+    });
+
+    document.getElementById("prev").addEventListener("click", () => {
+      if (rendition) {
+        rendition.prev();
+      }
+    });
+
+    document.getElementById("next").addEventListener("click", () => {
+      if (rendition) {
+        rendition.next();
+      }
+    });
+  </script>
+
+</body>
+</html>
