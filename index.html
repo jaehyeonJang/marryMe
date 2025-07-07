@@ -50,42 +50,27 @@
   </div>
 
   <script>
+  const book = ePub("soowon-tree.epub");
   let rendition;
-  const book = ePub("tes_epub - jaehyeon.epub");
 
   book.ready.then(() => {
+    console.log("✅ BOOK READY!");
+    console.log("Spine:", book.spine);
+
+    // spine 내부 목록 출력
+    book.spine.each(item => console.log("Spine Item:", item));
+
     rendition = book.renderTo("viewer", {
       width: "100%",
       height: "100%"
     });
 
-    rendition.themes.register("forceVisible", {
-      "body": {
-        "display": "block",
-        "color": "#000",
-        "background": "#fff",
-        "line-height": "1.6",
-        "padding": "1rem"
-      },
-      "p": {
-        "display": "block",
-        "line-height": "1.6",
-        "color": "#000"
-      },
-      ".calibre": {
-        "line-height": "1.6"
-      },
-      ".calibre1": {
-        "line-height": "1.6"
-      },
-      ".whitespace": {
-        "line-height": "1.6"
-      }
-    });
-    rendition.themes.select("forceVisible");
+    // 강제로 spine 첫 항목 불러오기 (인덱스로)
+    const firstItem = book.spine.get(0);
+    console.log("First Spine Item:", firstItem);
 
-    rendition.display('index_split_000.html')
-        .catch(err => console.error("❌ DISPLAY ERROR", err));
+    rendition.display(firstItem)
+      .catch(err => console.error("❌ DISPLAY ERROR", err));
   });
 
   document.getElementById("prev").addEventListener("click", () => {
@@ -95,11 +80,6 @@
   document.getElementById("next").addEventListener("click", () => {
     if (rendition) rendition.next();
   });
-
-    book.loaded.spine.then(spine => {
-      console.log("=== SPINE ===", spine);
-    });
-
 </script>
 
 
