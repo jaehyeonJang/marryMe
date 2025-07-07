@@ -4,14 +4,18 @@
   <meta charset="UTF-8" />
   <title>소원 트리 - eBook</title>
 
+  <!-- ✅ 반응형 뷰포트 필수 -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
+  <!-- ✅ epub.js CDN -->
   <script src="https://unpkg.com/epubjs/dist/epub.min.js"></script>
+
+  <!-- ✅ 기본 스타일 -->
   <style>
     body {
       margin: 0;
       background: #000;
-      overflow: hidden;
+      overflow: hidden; /* 스크롤 막기 */
     }
     #viewer {
       width: 100%;
@@ -36,32 +40,21 @@
 </head>
 <body>
 
+  <!-- ✅ eBook이 표시될 영역 -->
   <div id="viewer"></div>
 
+  <!-- ✅ 이전/다음 버튼 -->
   <div id="controls">
     <button id="prev">이전</button>
     <button id="next">다음</button>
   </div>
 
+  <!-- ✅ 안전한 epub.js 스크립트 -->
   <script>
+    let rendition; // ✅ 전역에 선언
+
     const book = ePub("soowon-tree.epub");
-    const rendition = book.renderTo("viewer", {
-      width: "100%",
-      height: "100%",
-    });
 
+    // ✅ 안전하게 book.ready 후 초기화
     book.ready.then(() => {
-      rendition.display();
-    });
-
-    document.getElementById("prev").addEventListener("click", () => {
-      rendition.prev();
-    });
-
-    document.getElementById("next").addEventListener("click", () => {
-      rendition.next();
-    });
-  </script>
-
-</body>
-</html>
+      rendition = book
