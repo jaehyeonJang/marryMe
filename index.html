@@ -59,7 +59,7 @@
       console.log("✅ BOOK READY");
 
       // spine 목록 출력
-      console.log("📌 Spine 전체:", book.spine);
+      console.log(" Spine 전체:", book.spine);
       book.spine.each(item => console.log("➡️ Spine Item:", item));
 
       // 렌더링 준비
@@ -70,7 +70,7 @@
 
       // spine 첫 항목을 인덱스로 직접 강제 불러오기
       const firstItem = book.spine.get(0);
-      console.log("📌 First Spine Item:", firstItem);
+      console.log(" First Spine Item:", firstItem);
 
       if (firstItem) {
         rendition.display(firstItem).catch(err => console.error(" DISPLAY ERROR:", err));
