@@ -4,18 +4,18 @@
   <meta charset="UTF-8" />
   <title>소원 트리 - eBook</title>
 
-  <!-- ✅ 반응형 뷰포트 필수! -->
+  <!-- 반응형 뷰포트 -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <!-- ✅ epub.js CDN -->
+  <!-- epub.js CDN -->
   <script src="https://unpkg.com/epubjs/dist/epub.min.js"></script>
 
-  <!-- ✅ 기본 스타일 -->
+  <!-- 배경/버튼 스타일 (라이트 테마) -->
   <style>
     body {
       margin: 0;
-      background: #000;
-      overflow: hidden; /* 스크롤 막기 */
+      background: #fff; /* ✅ 배경 흰색! */
+      overflow: hidden;
     }
     #viewer {
       width: 100%;
@@ -29,8 +29,8 @@
     }
     button {
       background: none;
-      border: 1px solid #fff;
-      color: #fff;
+      border: 1px solid #000; /* 검정 테두리 */
+      color: #000;            /* 검정 글씨 */
       padding: 0.5rem 1rem;
       margin: 0 1rem;
       cursor: pointer;
@@ -40,20 +40,18 @@
 </head>
 <body>
 
-  <!-- ✅ eBook이 표시될 영역 -->
+  <!-- EPUB이 표시될 영역 -->
   <div id="viewer"></div>
 
-  <!-- ✅ 이전/다음 버튼 -->
+  <!-- 이전/다음 버튼 -->
   <div id="controls">
     <button id="prev">이전</button>
     <button id="next">다음</button>
   </div>
 
-  <!-- ✅ 안전한 epub.js 스크립트 -->
   <script>
     let rendition;
-
-    const book = ePub("tes_epub - jaehyeon.epub");
+    const book = ePub("soowon-tree.epub");
 
     book.ready.then(() => {
       rendition = book.renderTo("viewer", {
@@ -61,23 +59,16 @@
         height: "100%"
       });
 
-      
-
-      rendition.themes.select("dark");
-
-      rendition.display();
+      // ✅ 강제 테마 없음 → EPUB 내부 CSS만 사용
+      rendition.display('chap_01.xhtml'); // spine 경로는 네 EPUB에 맞게!
     });
 
     document.getElementById("prev").addEventListener("click", () => {
-      if (rendition) {
-        rendition.prev();
-      }
+      if (rendition) rendition.prev();
     });
 
     document.getElementById("next").addEventListener("click", () => {
-      if (rendition) {
-        rendition.next();
-      }
+      if (rendition) rendition.next();
     });
   </script>
 
