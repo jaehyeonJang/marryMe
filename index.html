@@ -56,11 +56,11 @@
 
     // EPUB 로딩
     book.ready.then(() => {
-      console.log("✅ BOOK READY");
+      console.log("BOOK READY");
 
       // spine 목록 출력
       console.log(" Spine 전체:", book.spine);
-      book.spine.each(item => console.log("➡️ Spine Item:", item));
+      book.spine.each(item => console.log(" Spine Item:", item));
 
       // 렌더링 준비
       rendition = book.renderTo("viewer", {
@@ -80,7 +80,7 @@
 
       // 렌더링 이벤트 로그
       rendition.on("rendered", section => {
-        console.log("✅ Rendered:", section);
+        console.log(" Rendered:", section);
       });
     });
 
