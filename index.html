@@ -1,30 +1,68 @@
 <!DOCTYPE html>
-<html>
+<html lang="ko">
 <head>
-  <meta charset="utf-8">
+  <meta charset="UTF-8" />
   <title>소원 트리 - eBook</title>
+  <!-- epub.js 라이브러리 CDN -->
   <script src="https://unpkg.com/epubjs/dist/epub.min.js"></script>
   <style>
     body {
       margin: 0;
       background: #000;
+      overflow: hidden; /* 스크롤 막기 */
     }
     #viewer {
       width: 100%;
       height: 100vh;
     }
+    #controls {
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+    button {
+      background: none;
+      border: 1px solid #fff;
+      color: #fff;
+      padding: 0.5rem 1rem;
+      margin: 0 1rem;
+      cursor: pointer;
+      font-size: 1rem;
+    }
   </style>
 </head>
 <body>
+
   <div id="viewer"></div>
 
+  <!-- 좌우 넘김 버튼 -->
+  <div id="controls">
+    <button id="prev">이전</button>
+    <button id="next">다음</button>
+  </div>
+
   <script>
+    // 1) soowon-tree.epub 파일 로드
     const book = ePub("soowon-tree.epub");
+
+    // 2) viewer 영역에 렌더링
     const rendition = book.renderTo("viewer", {
       width: "100%",
       height: "100%"
     });
-    rendition.display();
+
+    rendition.display(); // 첫 페이지 보여주기
+
+    // 3) 이전/다음 버튼 연결
+    document.getElementById("prev").addEventListener("click", function(){
+      rendition.prev();
+    });
+
+    document.getElementById("next").addEventListener("click", function(){
+      rendition.next();
+    });
   </script>
+
 </body>
 </html>
