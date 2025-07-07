@@ -50,27 +50,30 @@
   </div>
 
   <script>
-    let rendition;
-    const book = ePub("tes_epub - jaehyeon.epub");
+  let rendition;
+  const book = ePub("soowon-tree.epub");
 
-    book.ready.then(() => {
-      rendition = book.renderTo("viewer", {
-        width: "100%",
-        height: "100%"
-      });
-
-      // ✅ 강제 테마 없음 → EPUB 내부 CSS만 사용
-      rendition.display('titlepage.xhtml'); // spine 경로는 네 EPUB에 맞게!
+  book.ready.then(() => {
+    rendition = book.renderTo("viewer", {
+      width: "100%",
+      height: "100%"
     });
 
-    document.getElementById("prev").addEventListener("click", () => {
-      if (rendition) rendition.prev();
+    // spine 첫 항목 (표지) 띄운 뒤 바로 다음으로 넘어가기
+    rendition.display('titlepage.xhtml').then(() => {
+      rendition.next(); // 표지를 자동으로 넘김!
     });
+  });
 
-    document.getElementById("next").addEventListener("click", () => {
-      if (rendition) rendition.next();
-    });
-  </script>
+  document.getElementById("prev").addEventListener("click", () => {
+    if (rendition) rendition.prev();
+  });
+
+  document.getElementById("next").addEventListener("click", () => {
+    if (rendition) rendition.next();
+  });
+</script>
+
 
 </body>
 </html>
