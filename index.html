@@ -84,7 +84,8 @@
     });
     rendition.themes.select("forceVisible");
 
-    rendition.display('index_split_000.html');
+    rendition.display('index_split_000.html')
+        .catch(err => console.error("❌ DISPLAY ERROR", err));
   });
 
   document.getElementById("prev").addEventListener("click", () => {
@@ -94,6 +95,11 @@
   document.getElementById("next").addEventListener("click", () => {
     if (rendition) rendition.next();
   });
+
+    book.loaded.spine.then(spine => {
+      console.log("=== SPINE ===", spine);
+    });
+
 </script>
 
 
