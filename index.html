@@ -7,14 +7,14 @@
   <!-- 반응형 뷰포트 -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <!-- epub.js CDN -->
+  <!-- epub.js CDN (최신) -->
   <script src="https://unpkg.com/epubjs/dist/epub.min.js"></script>
 
-  <!-- 배경/버튼 스타일 (라이트 테마) -->
+  <!-- 기본 스타일 -->
   <style>
     body {
       margin: 0;
-      background: #fff; /* ✅ 배경 흰색! */
+      background: #fff; /* 배경 흰색 */
       overflow: hidden;
     }
     #viewer {
@@ -29,8 +29,8 @@
     }
     button {
       background: none;
-      border: 1px solid #000; /* 검정 테두리 */
-      color: #000;            /* 검정 글씨 */
+      border: 1px solid #000;
+      color: #000;
       padding: 0.5rem 1rem;
       margin: 0 1rem;
       cursor: pointer;
@@ -38,9 +38,10 @@
     }
   </style>
 </head>
+
 <body>
 
-  <!-- EPUB이 표시될 영역 -->
+  <!-- EPUB 렌더링 영역 -->
   <div id="viewer"></div>
 
   <!-- 이전/다음 버튼 -->
@@ -50,39 +51,48 @@
   </div>
 
   <script>
-  const book = ePub("soowon-tree.epub");
-  let rendition;
+    const book = ePub("tes_epub - jaehyeon.epub");
+    let rendition;
 
-  book.ready.then(() => {
-    console.log("✅ BOOK READY!");
-    console.log("Spine:", book.spine);
+    // EPUB 로딩
+    book.ready.then(() => {
+      console.log("✅ BOOK READY");
 
-    // spine 내부 목록 출력
-    book.spine.each(item => console.log("Spine Item:", item));
+      // spine 목록 출력
+      console.log("📌 Spine 전체:", book.spine);
+      book.spine.each(item => console.log("➡️ Spine Item:", item));
 
-    rendition = book.renderTo("viewer", {
-      width: "100%",
-      height: "100%"
+      // 렌더링 준비
+      rendition = book.renderTo("viewer", {
+        width: "100%",
+        height: "100%"
+      });
+
+      // spine 첫 항목을 인덱스로 직접 강제 불러오기
+      const firstItem = book.spine.get(0);
+      console.log("📌 First Spine Item:", firstItem);
+
+      if (firstItem) {
+        rendition.display(firstItem).catch(err => console.error("❌ DISPLAY ERROR:", err));
+      } else {
+        console.error("❌ ERROR: Spine is empty or item not found");
+      }
+
+      // 렌더링 이벤트 로그
+      rendition.on("rendered", section => {
+        console.log("✅ Rendered:", section);
+      });
     });
 
-    // 강제로 spine 첫 항목 불러오기 (인덱스로)
-    const firstItem = book.spine.get(0);
-    console.log("First Spine Item:", firstItem);
+    // 이전/다음 버튼
+    document.getElementById("prev").addEventListener("click", () => {
+      if (rendition) rendition.prev();
+    });
 
-    rendition.display(firstItem)
-      .catch(err => console.error("❌ DISPLAY ERROR", err));
-  });
-
-  document.getElementById("prev").addEventListener("click", () => {
-    if (rendition) rendition.prev();
-  });
-
-  document.getElementById("next").addEventListener("click", () => {
-    if (rendition) rendition.next();
-  });
-</script>
-
-
+    document.getElementById("next").addEventListener("click", () => {
+      if (rendition) rendition.next();
+    });
+  </script>
 
 </body>
 </html>
