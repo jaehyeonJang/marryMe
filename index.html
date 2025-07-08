@@ -9,10 +9,10 @@
     html, body {
       margin: 0;
       padding: 0;
-      overflow: hidden;  /* 스크롤 제거 */
+      overflow: hidden;
       font-family: 'Segoe UI', sans-serif;
-      background: #000;  /* ✅ 전체 배경 검정 */
-      color: #fff;       /* ✅ 기본 글씨 흰색 */
+      background: #000;
+      color: #fff;
     }
 
     .page {
@@ -39,7 +39,6 @@
       margin: 0 auto;
     }
 
-    /* 본문은 왼쪽 정렬 */
     .page.content {
       align-items: flex-start;
       justify-content: flex-start;
@@ -50,10 +49,34 @@
       text-align: left;
     }
 
+    /* 인디케이터 */
+    .indicator {
+      position: fixed;
+      top: 50%;
+      right: 30px;
+      transform: translateY(-50%);
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      border: 2px solid #fff;
+      background: transparent;
+      transition: background 0.3s;
+    }
+
+    .dot.active {
+      background: #fff;
+    }
   </style>
 </head>
 <body>
 
+  <!-- 페이지들 -->
   <div class="page">
     <h1>소원 트리</h1>
     <p>기억은 원래 그 사람의 것이었지만,<br>더 이상 그 사람만의 것은 아닌 세상이 되었다.</p>
@@ -72,18 +95,44 @@
     <p>“네, 장재현입니다. 네.. 아 그런데 지금 미팅 중이라 내용을 메일로 주시면 제가 보고 답변드리겠습니다. 네, 수고하세요.”</p>
 
     <p>아침부터 많은 문의 전화가 몰려들어도 머리 한 구석에는 가현과의 주말이 자리잡아 있었다...</p>
-
-    <!-- 필요하면 본문 이어서 계속 -->
   </div>
+
+  <!-- 👉 필요하다면 페이지 더 추가 -->
+  <!--
+  <div class="page content">
+    <p>다음 본문...</p>
+  </div>
+  -->
+
+  <!-- 인디케이터 -->
+  <div class="indicator"></div>
 
   <script>
     const pages = document.querySelectorAll('.page');
+    const indicator = document.querySelector('.indicator');
     let currentPage = 0;
+
+    // 인디케이터 점 생성
+    pages.forEach((_, i) => {
+      const dot = document.createElement('div');
+      dot.classList.add('dot');
+      if (i === currentPage) dot.classList.add('active');
+      indicator.appendChild(dot);
+    });
+
+    const dots = document.querySelectorAll('.dot');
+
+    function updateIndicator() {
+      dots.forEach((dot, i) => {
+        dot.classList.toggle('active', i === currentPage);
+      });
+    }
 
     function showPage(index) {
       pages.forEach((page, i) => {
         page.style.transform = `translateY(${100 * (i - index)}vh)`;
       });
+      updateIndicator();
     }
 
     function nextPage() {
@@ -100,14 +149,12 @@
       }
     }
 
-    // 초기 상태
     showPage(currentPage);
 
-    // 휠로 한 페이지씩
     let lastScrollTime = 0;
     window.addEventListener('wheel', e => {
       const now = Date.now();
-      if (now - lastScrollTime < 800) return;  // 연속 입력 방지
+      if (now - lastScrollTime < 800) return;
       lastScrollTime = now;
 
       if (e.deltaY > 0) {
@@ -117,7 +164,6 @@
       }
     });
 
-    // 키보드 화살표로 이동
     window.addEventListener('keydown', e => {
       if (e.key === 'ArrowDown') {
         nextPage();
