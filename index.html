@@ -48,11 +48,20 @@
       align-items: flex-start;
       justify-content: flex-start;
       padding: 5vh 10vw;
+      position: relative;
     }
 
-    .page.content p {
+    .scroll-content {
+      width: 100%;
+      overflow-y: auto;
+      flex: 1;
+      max-height: calc(100vh - 5rem); /* 제목 공간 제외 */
+      padding-right: 1rem;
+    }
+
+    .scroll-content p {
       text-align: left;
-      white-space: pre-wrap; /* ✅ 공백/줄바꿈 유지 */
+      white-space: pre-wrap;
     }
 
     /* 인디케이터 */
@@ -97,10 +106,11 @@
       <p>이 이야기는 잊히지 못한 사람을 향한 작은 소원입니다.<br>이 페이지를 통해 누군가의 기억이 다시 이어지길 바랍니다.</p>
     </div>
 
-    <!-- ✅ 3페이지: 본문 -->
+    <!-- ✅ 3페이지: 본문 + 내부 스크롤 -->
     <div class="page content">
       <h1>소설 본문</h1>
-      <p>
+      <div class="scroll-content">
+        <p>
 많은 것들이 바뀌는 시기에도  
 결국 세상을 구성하는 다수는 평범한 사람들이었다.
 
@@ -111,7 +121,10 @@
 “네, 장재현입니다. 네.. 아 그런데 지금 미팅 중이라 내용을 메일로 주시면 제가 보고 답변드리겠습니다. 네, 수고하세요.”
 
 아침부터 많은 문의 전화가 몰려들어도 머리 한 구석에는 가현과의 주말이 자리잡아 있었다...
-      </p>
+
+(여기에 긴 본문 이어서)
+        </p>
+      </div>
     </div>
 
   </div>
@@ -123,9 +136,9 @@
     const track = document.querySelector('.track');
     const pages = document.querySelectorAll('.page');
     const indicator = document.querySelector('.indicator');
+    const scrollContent = document.querySelector('.scroll-content');
     let currentPage = 0;
 
-    // 인디케이터 생성
     pages.forEach((_, i) => {
       const dot = document.createElement('div');
       dot.classList.add('dot');
@@ -148,10 +161,9 @@
     }
 
     function nextPage() {
-      if (currentPage < pages.length - 1) {
-        currentPage++;
-        showPage(currentPage);
-      }
+      if (currentPage === pages.length - 1) return; // 마지막 페이지는 내부 스크롤
+      currentPage++;
+      showPage(currentPage);
     }
 
     function prevPage() {
@@ -165,9 +177,12 @@
 
     let isScrolling = false;
 
-    // PC: wheel
     window.addEventListener('wheel', e => {
       if (isScrolling) return;
+
+      // 마지막 페이지라면 내부 스크롤 우선 허용
+      if (currentPage === pages.length - 1) return;
+
       isScrolling = true;
 
       if (e.deltaY > 0) {
@@ -183,9 +198,11 @@
       }, 800);
     });
 
-    // PC: Arrow keys
     window.addEventListener('keydown', e => {
       if (isScrolling) return;
+
+      if (currentPage === pages.length - 1) return;
+
       isScrolling = true;
 
       if (e.key === 'ArrowDown') {
@@ -201,7 +218,7 @@
       }, 800);
     });
 
-    // 모바일: swipe
+    // 모바일 스와이프
     let touchStartY = 0;
     let touchEndY = 0;
 
@@ -216,6 +233,9 @@
 
     function handleGesture() {
       if (isScrolling) return;
+
+      if (currentPage === pages.length - 1) return; // 마지막 페이지는 내부 스크롤만
+
       isScrolling = true;
 
       if (touchStartY - touchEndY > 50) {
