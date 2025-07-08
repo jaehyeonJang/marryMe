@@ -15,17 +15,21 @@
       color: #fff;
     }
 
+    .track {
+      width: 100%;
+      height: 100vh;
+      transition: transform 0.7s ease;
+    }
+
     .page {
       width: 100%;
       height: 100vh;
-      min-height: 100vh; /* collapse 방지 */
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
       box-sizing: border-box;
       padding: 2rem;
-      transition: transform 0.7s ease;
     }
 
     .page h1 {
@@ -77,34 +81,38 @@
 </head>
 <body>
 
-  <!-- ✅ 첫 페이지: 제목 -->
-  <div class="page">
-    <h1>소원 트리</h1>
-    <p>기억은 원래 그 사람의 것이었지만, 더 이상 그 사람만의 것은 아닌 세상이 되었다.</p>
-  </div>
+  <!-- ✅ 트랙으로 묶음 -->
+  <div class="track">
 
-  <!-- ✅ 두 번째 페이지: 작가의 말 -->
-  <div class="page">
-    <h1>작가의 말</h1>
-    <p>이 이야기는 잊히지 못한 사람을 향한 작은 소원입니다. 이 페이지를 통해 누군가의 기억이 다시 이어지길 바랍니다.</p>
-  </div>
+    <!-- ✅ 첫 페이지: 제목 -->
+    <div class="page">
+      <h1>소원 트리</h1>
+      <p>기억은 원래 그 사람의 것이었지만, 더 이상 그 사람만의 것은 아닌 세상이 되었다.</p>
+    </div>
 
-  <!-- ✅ 세 번째 페이지: 본문 -->
-  <div class="page content">
-    <h1>소설 본문</h1>
-    <p>많은 것들이 바뀌는 시기에도 결국 세상을 구성하는 다수는 평범한 사람들이었다...</p>
-  </div>
+    <!-- ✅ 두 번째 페이지: 작가의 말 -->
+    <div class="page">
+      <h1>작가의 말</h1>
+      <p>이 이야기는 잊히지 못한 사람을 향한 작은 소원입니다. 이 페이지를 통해 누군가의 기억이 다시 이어지길 바랍니다.</p>
+    </div>
 
+    <!-- ✅ 세 번째 페이지: 본문 -->
+    <div class="page content">
+      <h1>소설 본문</h1>
+      <p>많은 것들이 바뀌는 시기에도 결국 세상을 구성하는 다수는 평범한 사람들이었다...</p>
+    </div>
+
+  </div>
 
   <!-- 인디케이터 -->
   <div class="indicator"></div>
-</body>
-<script>
+
+  <script>
+    const track = document.querySelector('.track');
     const pages = document.querySelectorAll('.page');
     const indicator = document.querySelector('.indicator');
     let currentPage = 0;
 
-    // 인디케이터 dot 생성
     pages.forEach((_, i) => {
       const dot = document.createElement('div');
       dot.classList.add('dot');
@@ -121,11 +129,8 @@
     }
 
     function showPage(index) {
-      // 항상 정수로 강제
       currentPage = Math.round(index);
-      pages.forEach((page, i) => {
-        page.style.transform = `translateY(${100 * (i - currentPage)}vh)`;
-      });
+      track.style.transform = `translateY(-${100 * currentPage}vh)`;
       updateIndicator();
     }
 
@@ -149,7 +154,6 @@
 
     window.addEventListener('wheel', e => {
       if (isScrolling) return;
-
       isScrolling = true;
 
       if (e.deltaY > 0) {
@@ -158,7 +162,6 @@
         prevPage();
       }
 
-      // 락 해제 전에도 currentPage는 정수!
       currentPage = Math.round(currentPage);
 
       setTimeout(() => {
@@ -168,7 +171,6 @@
 
     window.addEventListener('keydown', e => {
       if (isScrolling) return;
-
       isScrolling = true;
 
       if (e.key === 'ArrowDown') {
@@ -184,4 +186,5 @@
       }, 800);
     });
   </script>
+</body>
 </html>
