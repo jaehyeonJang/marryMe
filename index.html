@@ -16,18 +16,17 @@
     }
 
     .page {
-  width: 100%;
-  height: 100vh;
-  min-height: 100vh; /* ✅ 추가! */
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  box-sizing: border-box;
-  padding: 2rem;
-  transition: transform 0.7s ease;
-}
-
+      width: 100%;
+      height: 100vh;
+      min-height: 100vh; /* ✅ flex collapse 방지 */
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      box-sizing: border-box;
+      padding: 2rem;
+      transition: transform 0.7s ease;
+    }
 
     .page h1 {
       font-size: 3rem;
@@ -93,7 +92,13 @@
   <!-- ✅ 세 번째 페이지: 본문 -->
   <div class="page content">
     <h1>소설 본문</h1>
-    <p>많은 것들이 바뀌는 시기에도 결국 세상을 구성하는 다수는 평범한 사람들이었다...</p>
+    <p>많은 것들이 바뀌는 시기에도 결국 세상을 구성하는 다수는 평범한 사람들이었다. 여느 때와 마찬가지로 출근하고, 일을 하고, 퇴근 후 사랑하는 사람과 하루를 공유하며 주말을 기다렸다.</p>
+
+    <p>“네, 장재현입니다. 네.. 아 그런데 지금 미팅 중이라 내용을 메일로 주시면 제가 보고 답변드리겠습니다. 네, 수고하세요.”</p>
+
+    <p>아침부터 많은 문의 전화가 몰려들어도 머리 한 구석에는 가현과의 주말이 자리잡아 있었다...</p>
+
+    <!-- 👉 필요한 만큼 이어서 본문을 추가 -->
   </div>
 
   <!-- 인디케이터 -->
@@ -102,9 +107,9 @@
   <script>
     const pages = document.querySelectorAll('.page');
     const indicator = document.querySelector('.indicator');
-    let currentPage = 0; // ✅ 꼭 0으로 시작
+    let currentPage = 0;
 
-    // 인디케이터 dot 생성
+    // ✅ 인디케이터 dot 생성
     pages.forEach((_, i) => {
       const dot = document.createElement('div');
       dot.classList.add('dot');
@@ -143,17 +148,22 @@
 
     showPage(currentPage);
 
-    let lastScrollTime = 0;
+    // ✅ 스크롤 락으로 중복 이동 방지
+    let isScrolling = false;
+
     window.addEventListener('wheel', e => {
-      const now = Date.now();
-      if (now - lastScrollTime < 800) return;
-      lastScrollTime = now;
+      if (isScrolling) return;
+      isScrolling = true;
 
       if (e.deltaY > 0) {
         nextPage();
       } else {
         prevPage();
       }
+
+      setTimeout(() => {
+        isScrolling = false;
+      }, 700); // transition과 맞춤
     });
 
     window.addEventListener('keydown', e => {
@@ -164,5 +174,6 @@
       }
     });
   </script>
+
 </body>
 </html>
