@@ -52,6 +52,7 @@
 
     .page.content p {
       text-align: left;
+      white-space: pre-wrap; /* ✅ 공백/줄바꿈 유지 */
     }
 
     /* 인디케이터 */
@@ -81,54 +82,41 @@
 </head>
 <body>
 
-  <!-- ✅ 트랙으로 묶음 -->
+  <!-- ✅ 트랙: 페이지 래핑 -->
   <div class="track">
 
-    <!-- ✅ 첫 페이지: 제목 -->
+    <!-- ✅ 1페이지: 제목 -->
     <div class="page">
       <h1>소원 트리</h1>
-      <p>기억은 원래 그 사람의 것이었지만, 더 이상 그 사람만의 것은 아닌 세상이 되었다.</p>
+      <p>기억은 원래 그 사람의 것이었지만,<br>더 이상 그 사람만의 것은 아닌 세상이 되었다.</p>
     </div>
 
-    <!-- ✅ 두 번째 페이지: 작가의 말 -->
+    <!-- ✅ 2페이지: 작가의 말 -->
     <div class="page">
       <h1>작가의 말</h1>
-      <p>이 이야기는 잊히지 못한 사람을 향한 작은 소원입니다. 이 페이지를 통해 누군가의 기억이 다시 이어지길 바랍니다.</p>
+      <p>이 이야기는 잊히지 못한 사람을 향한 작은 소원입니다.<br>이 페이지를 통해 누군가의 기억이 다시 이어지길 바랍니다.</p>
     </div>
 
-    <!-- ✅ 세 번째 페이지: 본문 -->
+    <!-- ✅ 3페이지: 본문 -->
     <div class="page content">
       <h1>소설 본문</h1>
       <p>
-        많은 것들이 바뀌는 시기에도 결국 세상을 구성하는 다수는 평범한 사람들이었다...
-        많은 것들이 바뀌는 시기에도 결국 세상을 구성하는 다수는 평범한 사람들이었다...
-        많은 것들이 바뀌는 시기에도 결국 세상을 구성하는 다수는 평범한 사람들이었다...
-        많은 것들이 바뀌는 시기에도 결국 세상을 구성하는 다수는 평범한 사람들이었다...
-        많은 것들이 바뀌는 시기에도 결국 세상을 구성하는 다수는 평범한 사람들이었다...
-        많은 것들이 바뀌는 시기에도 결국 세상을 구성하는 다수는 평범한 사람들이었다...
+많은 것들이 바뀌는 시기에도  
+결국 세상을 구성하는 다수는 평범한 사람들이었다.
 
+여느 때와 마찬가지로 출근하고,  
+일을 하고,  
+퇴근 후 사랑하는 사람과 하루를 공유하며 주말을 기다렸다.
 
+“네, 장재현입니다. 네.. 아 그런데 지금 미팅 중이라 내용을 메일로 주시면 제가 보고 답변드리겠습니다. 네, 수고하세요.”
 
-        많은 것들이 바뀌는 시기에도 결국 세상을 구성하는 다수는 평범한 사람들이었다...
-
-
-        많은 것들이 바뀌는 시기에도 결국 세상을 구성하는 다수는 평범한 사람들이었다...
-
-        많은 것들이 바뀌는 시기에도 결국 세상을 구성하는 다수는 평범한 사람들이었다...
-
-        많은 것들이 바뀌는 시기에도 결국 세상을 구성하는 다수는 평범한 사람들이었다...많은 것들이 바뀌는 시기에도 결국 세상을 구성하는 다수는 평범한 사람들이었다...
-
-        많은 것들이 바뀌는 시기에도 결국 세상을 구성하는 다수는 평범한 사람들이었다...많은 것들이 바뀌는 시기에도 결국 세상을 구성하는 다수는 평범한 사람들이었다...
-
-        많은 것들이 바뀌는 시기에도 결국 세상을 구성하는 다수는 평범한 사람들이었다...
-        많은 것들이 바뀌는 시기에도 결국 세상을 구성하는 다수는 평범한 사람들이었다...
-        많은 것들이 바뀌는 시기에도 결국 세상을 구성하는 다수는 평범한 사람들이었다...
+아침부터 많은 문의 전화가 몰려들어도 머리 한 구석에는 가현과의 주말이 자리잡아 있었다...
       </p>
     </div>
 
   </div>
 
-  <!-- 인디케이터 -->
+  <!-- ✅ 인디케이터 -->
   <div class="indicator"></div>
 
   <script>
@@ -137,6 +125,7 @@
     const indicator = document.querySelector('.indicator');
     let currentPage = 0;
 
+    // 인디케이터 생성
     pages.forEach((_, i) => {
       const dot = document.createElement('div');
       dot.classList.add('dot');
@@ -176,6 +165,7 @@
 
     let isScrolling = false;
 
+    // PC: wheel
     window.addEventListener('wheel', e => {
       if (isScrolling) return;
       isScrolling = true;
@@ -193,6 +183,7 @@
       }, 800);
     });
 
+    // PC: Arrow keys
     window.addEventListener('keydown', e => {
       if (isScrolling) return;
       isScrolling = true;
@@ -209,6 +200,36 @@
         isScrolling = false;
       }, 800);
     });
+
+    // 모바일: swipe
+    let touchStartY = 0;
+    let touchEndY = 0;
+
+    window.addEventListener('touchstart', e => {
+      touchStartY = e.changedTouches[0].screenY;
+    }, false);
+
+    window.addEventListener('touchend', e => {
+      touchEndY = e.changedTouches[0].screenY;
+      handleGesture();
+    }, false);
+
+    function handleGesture() {
+      if (isScrolling) return;
+      isScrolling = true;
+
+      if (touchStartY - touchEndY > 50) {
+        nextPage();
+      } else if (touchEndY - touchStartY > 50) {
+        prevPage();
+      }
+
+      currentPage = Math.round(currentPage);
+
+      setTimeout(() => {
+        isScrolling = false;
+      }, 800);
+    }
   </script>
 </body>
 </html>
