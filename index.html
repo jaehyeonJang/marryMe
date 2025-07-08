@@ -9,15 +9,20 @@
     html, body {
       margin: 0;
       padding: 0;
+      height: 100%;
+      overflow-y: scroll;
       scroll-behavior: smooth;
       font-family: 'Segoe UI', sans-serif;
-      background: #fff;
-      color: #111;
+    }
+
+    body {
+      scroll-snap-type: y mandatory; /* 👈 스크롤 스냅 방향과 필수 여부 */
     }
 
     section {
+      scroll-snap-align: start;  /* 👈 스냅 시작점 */
       width: 100%;
-      height: 100vh; /* 한 화면 높이 */
+      height: 100vh;  /* 한 화면 높이 */
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -28,7 +33,7 @@
 
     section h1 {
       font-size: 3rem;
-      margin: 0;
+      margin: 0 0 1rem 0;
     }
 
     section p {
@@ -38,16 +43,25 @@
       text-align: center;
     }
 
-    /* 본문은 스크롤이 필요할 수 있음 */
     section.content {
       align-items: flex-start;
+      justify-content: flex-start;
+      text-align: left;
       overflow-y: auto;
       padding: 5vh 10vw;
-      text-align: left;
     }
 
     section.content p {
       margin-bottom: 1.5rem;
+    }
+
+    /* 간단한 배경색 구분 (선택) */
+    section:nth-child(odd) {
+      background: #f9f9f9;
+    }
+
+    section:nth-child(even) {
+      background: #ffffff;
     }
 
   </style>
@@ -71,9 +85,11 @@
     <h1>소설 본문</h1>
     <p>많은 것들이 바뀌는 시기에도 결국 세상을 구성하는 다수는 평범한 사람들이었다.
     여느 때와 마찬가지로 출근하고, 일을 하고, 퇴근 후 사랑하는 사람과 하루를 공유하며 주말을 기다렸다.</p>
+
     <p>“네, 장재현입니다. 네.. 아 그런데 지금 미팅 중이라 내용을 메일로 주시면 제가 보고 답변드리겠습니다. 네, 수고하세요.”</p>
+
     <p>아침부터 많은 문의 전화가 몰려들어도 머리 한 구석에는 가현과의 주말이 자리잡아 있었다...</p>
-    <!-- 👉 이 아래에 계속 이어서 본문을 추가 -->
+    <!-- 본문 이어서 계속 -->
   </section>
 
 </body>
